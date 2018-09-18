@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_mine_avatar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_below="@+id/title_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mine_me"/>
+
+
+    <TextView
+        android:id="@+id/tv_duihuan_phonenumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_mine_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        />
+
+
+    <EditText
+        android:id="@+id/et_duihuanma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="40dp"
+        android:hint="请输入兑换码"
+        android:maxLength="11"
+        android:drawableLeft="@drawable/duihuanma"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:theme="@style/MyEditText"
+        android:inputType="number"/>
+
+    <Button
+        android:id="@+id/duihuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="立即激活"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_mine_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:text="兑换码是用于增加体验时长的电子码,联系微信可以免费领取。请在有效期内使用，过期作废。"
+        android:layout_marginLeft="30dp"/>
+
+
+</LinearLayout>

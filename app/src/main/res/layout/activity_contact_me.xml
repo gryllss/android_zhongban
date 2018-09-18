@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageButton
+            android:id="@+id/btnBack1"
+            android:layout_width="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:src="@drawable/theme_toolbar_btn_back_fg_normal0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="#FFF"
+            android:gravity="center"
+            android:text="联系我们"
+            android:layout_centerInParent="true"
+            android:textColor="#5E5E5E"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E6E6E6" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="联系VX：xh191128，或QQ：2537977869，即可免费领取时长年卡。"
+        android:textSize="15sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_weixin"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
+
+
+
+</LinearLayout>

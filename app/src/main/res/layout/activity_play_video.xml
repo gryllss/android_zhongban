@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/navigation1"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="35dp"-->
+    <!--android:background="#FFF"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="35dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textview_gobackvideo"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="返回"-->
+    <!--android:textColor="#5E5E5E"-->
+    <!--android:textSize="15dp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textview_refreshvideo"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_toRightOf="@+id/textview_gobackvideo"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="刷新"-->
+    <!--android:textColor="#5E5E5E"-->
+    <!--android:textSize="15dp" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/textview_videotitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:gravity="center_vertical|center_horizontal"-->
+    <!--android:text="优趣"-->
+    <!--android:textColor="#5E5E5E"-->
+    <!--android:textSize="18dp" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/textview_changeline"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="切换线路"-->
+    <!--android:textColor="#5E5E5E"-->
+    <!--android:textSize="15dp" />-->
+    <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E6E6E6" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarvideo"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#fff"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent">
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="优趣"-->
+            <!--android:textColor="#5E5E5E"-->
+            <!--android:textSize="20sp" />-->
+
+
+            <TextView
+                android:id="@+id/changeline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="切换线路"
+                android:textColor="#5E5E5E"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/lastgoback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="关闭"
+                android:textColor="#5E5E5E"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/lastrefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="60dp"
+                android:text="刷新"
+                android:textColor="#5E5E5E"
+                android:textSize="15sp" />
+
+
+            <!--<TextView-->
+            <!--android:id="@+id/textviewrefresh_last"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="left"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textColor="#5E5E5E"-->
+            <!--android:text="刷新"-->
+            <!--android:layout_marginLeft="20dp"/>-->
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#555555">
+
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="当前正在播放："
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/videotitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/textview1"
+            android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="center"
+        android:text="视频15s无法播放，可尝试刷新或切换线路搜索资源"
+
+        android:textColor="#fff" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/webView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#666666">
+
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#555555"
+        android:gravity="center"
+        android:text="资源均为互联网搜集，如有广告内容，请勿相信"
+
+        android:textColor="#fff" />
+
+
+</LinearLayout>
