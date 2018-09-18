@@ -1,8 +1,11 @@
 package com.example.s.x5x5x5x55x;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -30,8 +33,9 @@ import cn.bmob.v3.listener.SaveListener;
 public class SignUpActivity extends AppCompatActivity {
 
     private ImageButton mBack;
-    private EditText mLoginPhoneNumber,mLoginPassword,mReInputLoginPassword;
+    private EditText mLoginPhoneNumber, mLoginPassword, mReInputLoginPassword;
     private Button mSignUp;
+    private String imei;
 
 
     @Override
@@ -39,42 +43,47 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         Bmob.initialize(this, "2a654d2984b42dffb0a329dcc7189b4d");
-        mBack = (ImageButton)findViewById(R.id.btnBack1);
+        mBack = (ImageButton) findViewById(R.id.btnBack1);
         mLoginPhoneNumber = (EditText) findViewById(R.id.et_signupphonenumber);
         mLoginPassword = (EditText) findViewById(R.id.et_signuppassword);
         mReInputLoginPassword = (EditText) findViewById(R.id.et_reinputsignuppassword);
-        mSignUp = (Button)findViewById(R.id.signup);
+        mSignUp = (Button) findViewById(R.id.signup);
 
-       mSignUp.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        mSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-               String userPhone = mLoginPhoneNumber.getText().toString();
-               String userPasswprd = mLoginPassword.getText().toString();
-               String userReInputPasswprd = mReInputLoginPassword.getText().toString();
-               if (userPhone.equals("") || userPasswprd.equals("")){
-                   Toast toast = Toast.makeText(SignUpActivity.this, "手机号和密码不能为空", Toast.LENGTH_SHORT);
-                   toast.setGravity(Gravity.CENTER,0,0);
-                   toast.show();
-               }else{
-                   if ( !isChinaPhoneLegal(userPhone)){
-                       Toast toast = Toast.makeText(SignUpActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT);
-                       toast.setGravity(Gravity.CENTER,0,0);
-                       toast.show();
-                   }else {
-                       if (!isPasswordLegal(userPasswprd)){
-                           Toast toast = Toast.makeText(SignUpActivity.this, "请输入至少6位密码", Toast.LENGTH_SHORT);
-                           toast.setGravity(Gravity.CENTER,0,0);
-                           toast.show();
-                       }else if (!userPasswprd.equals(userReInputPasswprd)){
-                           Toast toast = Toast.makeText(SignUpActivity.this, "两次密码不一致", Toast.LENGTH_SHORT);
-                           toast.setGravity(Gravity.CENTER,0,0);
-                           toast.show();
-                       }else{
-                             MyUser myUser = new MyUser();
+                String userPhone = mLoginPhoneNumber.getText().toString();
+                String userPasswprd = mLoginPassword.getText().toString();
+                String userReInputPasswprd = mReInputLoginPassword.getText().toString();
+                if (userPhone.equals("") || userPasswprd.equals("")) {
+                    Toast toast = Toast.makeText(SignUpActivity.this, "手机号和密码不能为空", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else {
+                    if (!isChinaPhoneLegal(userPhone)) {
+                        Toast toast = Toast.makeText(SignUpActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    } else {
+                        if (!isPasswordLegal(userPasswprd)) {
+                            Toast toast = Toast.makeText(SignUpActivity.this, "请输入至少6位密码", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        } else if (!userPasswprd.equals(userReInputPasswprd)) {
+                            Toast toast = Toast.makeText(SignUpActivity.this, "两次密码不一致", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        } else {
+                            MyUser myUser = new MyUser();
+                            if (ActivityCompat.checkSelfPermission(SignUpActivity.this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                                TelephonyManager telephonyManager = (TelephonyManager) SignUpActivity.this.getSystemService( SignUpActivity.this.TELEPHONY_SERVICE);
+                                  imei = telephonyManager.getDeviceId();
+                            }
                            myUser.setUsername(userPhone);
                            myUser.setPassword(userPasswprd);
                            myUser.setOutTime(DateAndString.date2Str(new Date(new Date().getTime() + 2*24*60*60*1000)));
+                           myUser.setUserImei(imei);//获取手机imei作为账号找回密码的比对值，在注册时写入。
                            myUser.signUp( new SaveListener<MyUser>() {
                                @Override
                                public void done(MyUser myUser, BmobException e) {

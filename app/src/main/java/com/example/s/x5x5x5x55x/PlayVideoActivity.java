@@ -50,8 +50,8 @@ public class PlayVideoActivity extends AppCompatActivity {
 //    private String mLine1Url = "http://yun.ckmov.com/ckmov/index.php?url=";
 //    http://vip.jlsprh.com/index.php?url=
 
-    private String mLine1Url = "http://yun.baiyug.cn/vip/?url=";
-    private String mLine1Ur2 = "http://y.mt2t.com/lines?url=";
+    private String mLine1Url = "http://y.mt2t.com/lines?url=";
+    private String mLine1Ur2 = "http://yun.baiyug.cn/vip/?url=";
     private String mLine1Ur3 = "http://yun.odflv.com/?url=";
     private String mLine1Ur4 = "http://jiexi.071811.cc/jx.php?url=";
     private String mLine1Ur5 = "https://www.1717yun.com/jx/ty.php?url=";

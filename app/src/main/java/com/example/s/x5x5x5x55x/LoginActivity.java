@@ -1,9 +1,13 @@
 package com.example.s.x5x5x5x55x;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.tv.TvContentRating;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLogin;
     private TextView mLoginToSignUp;
     private Boolean isLogin = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     String userPassword = mLoginPassword.getText().toString();
                     myUser.setUsername(userPhone);
                     myUser.setPassword(userPassword);
+
                     myUser.login( new SaveListener<MyUser>() {
                         @Override
                         public void done(MyUser myUser, BmobException e) {

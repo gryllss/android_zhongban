@@ -32,19 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private List<Fragment> mFragmentList = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_PHONE_STATE},1);
-//        }else {
-//
-//            TelephonyManager telephonyManager = (TelephonyManager) MainActivity.this.getSystemService( MainActivity.this.TELEPHONY_SERVICE);
-//            String imei = telephonyManager.getDeviceId();
-//            Toast.makeText(MainActivity.this,imei,Toast.LENGTH_LONG).show();
-//        }  //获取手机imei作为账号验证码，由于需要动态申请权限，这次使用在用户登录的时候记录毫秒值。
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_PHONE_STATE},1);
+        }
 
 
 

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
 
-        ndk{abiFilters "armeabi"}
+        ndk{abiFilters "armeabi", "x86"}
 
         sourceSets {
             main.jniLibs.srcDirs = ['libs']

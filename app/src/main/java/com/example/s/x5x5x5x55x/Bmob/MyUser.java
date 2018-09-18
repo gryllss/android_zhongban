@@ -10,6 +10,7 @@ public class MyUser extends BmobUser {
 
     private String outTime;
     private String currentTimeMillisVer;
+    private String userImei;
 
     public String getOutTime() {
         return outTime;
@@ -27,5 +28,13 @@ public class MyUser extends BmobUser {
 
     public void setCurrentTimeMillisVer(String currentTimeMillisVer) {
         this.currentTimeMillisVer = currentTimeMillisVer;
+    }
+
+    public String getUserImei() {
+        return userImei;
+    }
+
+    public void setUserImei(String userImei) {
+        this.userImei = userImei;
     }
 }
