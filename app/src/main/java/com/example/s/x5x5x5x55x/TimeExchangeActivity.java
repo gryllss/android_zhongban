@@ -26,12 +26,12 @@ public class TimeExchangeActivity extends AppCompatActivity {
     private TextView mDuihuanPhone;
     private EditText mDuihuanma;
     private Button mDuihuan;
-    private String userPhone;
-    private String duiHuanMa;
+    private String userPhone = "";
+    private String duiHuanMa = "";
 
 
     private Boolean isUsedCode ;
-    private String objectId;
+    private String objectId ="";
 
 
     @Override

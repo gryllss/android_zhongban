@@ -57,8 +57,8 @@ public class VideoFragment extends Fragment {
 
     private List<String> images = new ArrayList<>();
 
-    private String bmobCurrentTime;
-    private String localCurrentTime;
+    private String bmobCurrentTime = "";
+    private String localCurrentTime ="";
     private Date localOutTime;
 
     private Boolean isVer;
@@ -81,8 +81,11 @@ public class VideoFragment extends Fragment {
         }
         Bmob.initialize(getActivity(), "2a654d2984b42dffb0a329dcc7189b4d");
         BmobUpdateAgent.update(getActivity());
-        isVer();
-
+        if (isVer()){
+            isVer = true;
+        }else {
+            isVer = false;
+        }
     }
 
     @Nullable

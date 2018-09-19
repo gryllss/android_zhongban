@@ -36,13 +36,6 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
     private CircleImageView mMineAvatar;
     private TextView mSignUpLogin, mMineTime;
     LinearLayout ll_mine_item;
-    private String currentTime;
-    private boolean isAddExitView = false;
-    private boolean isLogin = false;
-
-
-    private long exittime = 0;
-
     public MyFragment() {
 
     }
