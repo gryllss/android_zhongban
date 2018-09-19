@@ -35,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageButton mBack;
     private EditText mLoginPhoneNumber, mLoginPassword, mReInputLoginPassword;
     private Button mSignUp;
-    private String imei;
+    private String imei = "";
 
 
     @Override
