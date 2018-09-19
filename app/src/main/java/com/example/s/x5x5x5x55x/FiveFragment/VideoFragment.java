@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.s.x5x5x5x55x.Bmob.MyUser;
@@ -51,6 +52,7 @@ public class VideoFragment extends Fragment {
     ImageView image_dongman;
     ImageView image_dianshi;
     private LoopViewPager viewPager;
+    private ProgressBar progressBar;
 
 
     private List<String> images = new ArrayList<>();
@@ -108,6 +110,8 @@ public class VideoFragment extends Fragment {
         image_lishipin = (ImageView) view.findViewById(R.id.imageview_lishipin);
         image_dongman = (ImageView) view.findViewById(R.id.imageview_dongman);
         image_dianshi = (ImageView) view.findViewById(R.id.imageview_dianshi);
+        progressBar = (ProgressBar)view.findViewById(R.id.proLoading);
+        progressBar.setVisibility(View.INVISIBLE);
     openVideo();
 
 //        final MyUser myUser = MyUser.getCurrentUser(getActivity(),MyUser.class);
@@ -140,6 +144,7 @@ public class VideoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (isVer()){
+                    progressBar.setVisibility(View.VISIBLE);
                     Intent intent = new Intent(getActivity(), BrowserActivity.class);
                     intent.putExtra("url", dataurl);
                     getActivity().startActivity(intent);
@@ -207,6 +212,12 @@ public class VideoFragment extends Fragment {
 
             return false;
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }
 

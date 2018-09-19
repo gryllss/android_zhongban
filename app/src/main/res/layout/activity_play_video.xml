@@ -200,8 +200,7 @@
         android:layout_height="100dp"
         android:background="#555555"
         android:gravity="center"
-        android:text="资源均为互联网搜集，如有广告内容，请勿相信"
-
+        android:text="资源均为互联网搜集，仅供学习交流\n如有广告内容，请仔细甄别"
         android:textColor="#fff" />
 
 
