@@ -1,20 +1,31 @@
 package com.example.s.x5x5x5x55x.FiveFragment;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Layout;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.s.x5x5x5x55x.MainActivity;
 import com.example.s.x5x5x5x55x.R;
+import com.example.s.x5x5x5x55x.utils.AnimationUtils;
 
 public class BaoyouFragment extends Fragment {
 
@@ -22,6 +33,7 @@ public class BaoyouFragment extends Fragment {
     private ImageButton mForward;
     private ImageButton mHome;
     private ImageButton mRefresh;
+    private ProgressBar mprogressBar;
 
 
     public WebView baoyouWebView;
@@ -72,7 +84,7 @@ public class BaoyouFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_baoyou, container, false);
         baoyouWebView = (WebView) view.findViewById(R.id.wv_tv);
-
+        mprogressBar = (ProgressBar)view.findViewById(R.id.myProgressBar);
         mBack = (ImageButton) view.findViewById(R.id.btnBack1);
         mForward = (ImageButton) view.findViewById(R.id.btnForward1);
         mRefresh = (ImageButton) view.findViewById(R.id.btnrefresh1);
@@ -140,6 +152,94 @@ public class BaoyouFragment extends Fragment {
             }
         });
 
+        baoyouWebView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    mprogressBar.setVisibility(View.INVISIBLE);
+
+                } else {
+                    if (View.INVISIBLE == mprogressBar.getVisibility()) {
+                        mprogressBar.setVisibility(View.VISIBLE);
+                    }
+                    mprogressBar.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+        });
+
+        final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return false;
+            }
+        });
+
+        baoyouWebView.setOnTouchListener(new View.OnTouchListener() {
+            private float mEndY;
+            private float mStartY;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mStartY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        mEndY = event.getY();
+                        float v1 = mEndY - mStartY;
+                        if (v1 > 3) {
+                            //我这个是在fragment中的操作 这个是获取activity中的布局
+//                            getActivity().findViewById(R.id.toolbar1).setVisibility(View.VISIBLE);
+                            getActivity().findViewById( R.id.rg_main).setVisibility(View.VISIBLE);
+                            getActivity().findViewById( R.id.divider).setVisibility(View.VISIBLE);
+//                            AnimationUtils.showAndHiddenAnimation(getActivity().findViewById( R.id.rg_main), AnimationUtils.AnimationState.STATE_SHOW,1000);
+
+
+
+
+                            //这个就是当前页面的头布局id
+                             } else if (v1 < -10) {
+//                            getActivity().findViewById(R.id.toolbar1).setVisibility(View.GONE);
+                            getActivity().findViewById( R.id.rg_main).setVisibility(View.GONE);
+                            getActivity().findViewById( R.id.divider).setVisibility(View.GONE);
+//                            AnimationUtils.showAndHiddenAnimation(getActivity().findViewById( R.id.rg_main), AnimationUtils.AnimationState.STATE_HIDDEN,1000);
+                        }
+                            break;
+                        case MotionEvent.ACTION_UP: break; }
+//这里一定要返回gestureDetector.onTouchEvent(event)  不然滑动监听无效
+
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+
+
+
 
         baoyouWebView.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -191,8 +291,6 @@ public class BaoyouFragment extends Fragment {
             //  Toast.makeText(this,"网页加载错误！",0).show();
         }
     }
-
-
 
 
 }

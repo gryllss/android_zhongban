@@ -4,14 +4,19 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.s.x5x5x5x55x.R;
@@ -22,6 +27,7 @@ public class SearchFragment extends Fragment {
     private ImageButton mForward;
     private ImageButton mHome;
     private ImageButton mRefresh;
+    private ProgressBar mprogressBar;
 
     public WebView searchWebView;
 
@@ -71,7 +77,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         searchWebView = (WebView) view.findViewById(R.id.wv_search);
-
+        mprogressBar = (ProgressBar)view.findViewById(R.id.myProgressBar);
         mBack = (ImageButton) view.findViewById(R.id.btnBack1);
         mForward = (ImageButton) view.findViewById(R.id.btnForward1);
         mRefresh = (ImageButton) view.findViewById(R.id.btnrefresh1);
@@ -137,6 +143,84 @@ public class SearchFragment extends Fragment {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 changGoForwardButton(view);
+            }
+        });
+
+        searchWebView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    mprogressBar.setVisibility(View.INVISIBLE);
+                } else {
+                    if (View.INVISIBLE == mprogressBar.getVisibility()) {
+                        mprogressBar.setVisibility(View.VISIBLE);
+                    }
+                    mprogressBar.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+        });
+
+        final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return false;
+            }
+        });
+
+        searchWebView .setOnTouchListener(new View.OnTouchListener() {
+            private float mEndY;
+            private float mStartY;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mStartY = event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        mEndY = event.getY();
+                        float v1 = mEndY - mStartY;
+                        if (v1 > 3) {
+                            //我这个是在fragment中的操作 这个是获取activity中的布局
+//                            getActivity().findViewById(R.id.toolbar1).setVisibility(View.VISIBLE);
+                            getActivity().findViewById( R.id.rg_main).setVisibility(View.VISIBLE);
+                            getActivity().findViewById( R.id.divider).setVisibility(View.VISIBLE);
+                            //这个就是当前页面的头布局id
+                        } else if (v1 < -10) {
+//                            getActivity().findViewById(R.id.toolbar1).setVisibility(View.GONE);
+                            getActivity().findViewById( R.id.rg_main).setVisibility(View.GONE);
+                            getActivity().findViewById( R.id.divider).setVisibility(View.GONE);}
+                        break;
+                    case MotionEvent.ACTION_UP: break; }
+//这里一定要返回gestureDetector.onTouchEvent(event)  不然滑动监听无效
+
+                return gestureDetector.onTouchEvent(event);
             }
         });
 
