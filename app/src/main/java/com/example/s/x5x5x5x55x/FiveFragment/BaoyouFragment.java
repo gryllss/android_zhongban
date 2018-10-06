@@ -254,6 +254,7 @@ public class BaoyouFragment extends Fragment {
                         }else {
                             if (System.currentTimeMillis() - exittime <2000){
                                 getActivity().finish();
+                                System.exit(0);
                             }else {
                                 exittime = System.currentTimeMillis();
                                 Toast.makeText(getActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();

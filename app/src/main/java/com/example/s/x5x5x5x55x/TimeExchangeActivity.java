@@ -2,9 +2,12 @@ package com.example.s.x5x5x5x55x;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ public class TimeExchangeActivity extends AppCompatActivity {
     private Button mDuihuan;
     private String userPhone = "";
     private String duiHuanMa = "";
+    private LinearLayout linearLayout;
 
 
     private Boolean isUsedCode ;
@@ -39,6 +43,7 @@ public class TimeExchangeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bmob.initialize(TimeExchangeActivity.this, "2a654d2984b42dffb0a329dcc7189b4d");
         setContentView(R.layout.activity_time_exchange);
+        linearLayout = (LinearLayout)findViewById(R.id.layout_timechange);
         mDuihuanPhone = (TextView) findViewById(R.id.tv_duihuan_phonenumber);
         mDuihuanma = (EditText) findViewById(R.id.et_duihuanma);
         mDuihuan = (Button) findViewById(R.id.duihuan);
@@ -46,9 +51,29 @@ public class TimeExchangeActivity extends AppCompatActivity {
         if (myUser!=null){
             userPhone = myUser.getUsername();
             StringBuilder sb = new StringBuilder(userPhone);
-            sb.replace(3, 7, "****");
-            mDuihuanPhone.setText(sb.toString());
+            if (sb.length() >= 7){
+                sb.replace(3, 7, "****");
+                mDuihuanPhone.setText(sb.toString());
+            }else {
+                mDuihuanPhone.setText(sb.toString());
+            }
+
         }
+
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                linearLayout.setFocusable(true);
+                linearLayout.setFocusableInTouchMode(true);
+                linearLayout.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                imm.hideSoftInputFromWindow(mDuihuanma.getWindowToken(), 0);
+
+
+                return false;
+            }
+        });
 
 
 

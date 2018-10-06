@@ -50,7 +50,8 @@ public class BrowserActivity extends Activity {
     private TextView mCloseVideo;
     private TextView mRefreshVideo;
     private TextView mPlayVideo;
-private long exittime =0 ;
+    private long exittime = 0;
+    private String[] jiexiUrl=null ;
 
 
     //	private static final String mHomeUrl = "http://app.html5.qq.com/navi/index";
@@ -74,8 +75,9 @@ private long exittime =0 ;
 
         final Intent intent = getIntent();
         mHomeUrl = intent.getStringExtra("url");
-        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        jiexiUrl = intent.getStringArrayExtra("jiexiUrl");
 
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
 
 //		Intent intent = getIntent();
@@ -139,10 +141,11 @@ private long exittime =0 ;
             @Override
             public void onClick(View v) {
                 String videourl = mWebView.getUrl();
-               Intent intent1 = new Intent(BrowserActivity.this,PlayVideoActivity.class);
-               intent1.putExtra("videourl",videourl);
-               intent1.putExtra("videotitle",mWebView.getTitle());
-               startActivity(intent1);
+                Intent intent1 = new Intent(BrowserActivity.this, PlayVideoActivity.class);
+                intent1.putExtra("videourl", videourl);
+                intent1.putExtra("videotitle", mWebView.getTitle());
+                intent1.putExtra("jiexiURL",jiexiUrl);
+                startActivity(intent1);
 
             }
         });

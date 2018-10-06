@@ -11,9 +11,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.s.x5x5x5x55x.Bmob.UserReadOrACL;
 import com.example.s.x5x5x5x55x.FiveFragment.BaoyouFragment;
 import com.example.s.x5x5x5x55x.FiveFragment.MallFragment;
 import com.example.s.x5x5x5x55x.FiveFragment.MyFragment;
@@ -22,6 +24,11 @@ import com.example.s.x5x5x5x55x.FiveFragment.VideoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 //import android.support.v4.app.FragmentActivity;
 
@@ -37,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_PHONE_STATE},1);
         }
@@ -73,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             changeFragment(VideoFragment.class.getName());
         }
+
 
 
     }
@@ -119,7 +126,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            if (View.VISIBLE == findViewById(R.id.proLoading).getVisibility()){
+                findViewById(R.id.proLoading).setVisibility(View.INVISIBLE);
+            }else {
+                exit();
+            }
+
             return false;
         }
         return super.onKeyDown(keyCode, event);

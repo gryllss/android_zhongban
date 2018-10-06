@@ -3,6 +3,9 @@
    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/layout_timechange"
    >
 
 
@@ -28,7 +31,7 @@
         android:textColor="#000"
         android:layout_gravity="center"
         android:textSize="15sp"
-        />
+       />
 
 
     <EditText
@@ -39,11 +42,12 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="40dp"
         android:hint="请输入兑换码"
-        android:maxLength="11"
+        android:maxLength="8"
         android:drawableLeft="@drawable/duihuanma"
         android:textCursorDrawable="@drawable/cursor_color"
         android:theme="@style/MyEditText"
-        android:inputType="number"/>
+        android:inputType="textEmailAddress"
+    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" />
 
     <Button
         android:id="@+id/duihuan"

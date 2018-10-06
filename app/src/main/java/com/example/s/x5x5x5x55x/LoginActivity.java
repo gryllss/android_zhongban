@@ -1,18 +1,24 @@
 package com.example.s.x5x5x5x55x;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.tv.TvContentRating;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLogin;
     private TextView mLoginToSignUp;
     private Boolean isLogin = false;
+    private LinearLayout linearLayout;
 
 
     @Override
@@ -42,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Bmob.initialize(this, "2a654d2984b42dffb0a329dcc7189b4d");
+        linearLayout = (LinearLayout)findViewById(R.id.layout_login);
         mBack = (ImageButton) findViewById(R.id.btnBack1);
         mLoginPhoneNumber = (EditText) findViewById(R.id.et_loginphonenumber);
         mLoginPassword = (EditText) findViewById(R.id.et_loginpassword);
@@ -59,6 +67,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+            }
+        });
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                linearLayout.setFocusable(true);
+                linearLayout.setFocusableInTouchMode(true);
+                linearLayout.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                imm.hideSoftInputFromWindow(mLoginPhoneNumber.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(mLoginPassword.getWindowToken(), 0);
+
+                return false;
             }
         });
 
@@ -81,9 +103,19 @@ public class LoginActivity extends AppCompatActivity {
                                 isLogin =true;
                                 finish();
                             }else {
-                                Toast toast = Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER, 0, 0);
-                                toast.show();
+                                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+                                if (networkInfo == null || !networkInfo.isAvailable()) {
+                                    Toast toast = Toast.makeText(LoginActivity.this, "登陆失败，请检查网络或稍后重试", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                    toast.show();
+
+                                }else {
+                                    Toast toast = Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                    toast.show();
+                                }
+
                             }
                         }
 

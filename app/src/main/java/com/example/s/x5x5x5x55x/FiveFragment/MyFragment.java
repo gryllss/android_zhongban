@@ -36,6 +36,7 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
     private CircleImageView mMineAvatar;
     private TextView mSignUpLogin, mMineTime;
     LinearLayout ll_mine_item;
+
     public MyFragment() {
 
     }
@@ -68,7 +69,6 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
     }
 
 
-
     public void initView() {
         ll_mine_item = (LinearLayout) getActivity().findViewById(R.id.ll_mine_item);
         mMineAvatar = (CircleImageView) getActivity().findViewById(R.id.iv_mine_avatar);
@@ -92,7 +92,6 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
                 startActivity(intent);
             }
         });
-
 
 
         //使用示例，通过Java代码来创建MyOnelineView
@@ -125,9 +124,6 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
         ll_mine_item.getChildAt(5).setVisibility(View.INVISIBLE);
 
 
-
-
-
 //        ll_mine_item.removeViewAt(5);
 
 
@@ -145,8 +141,8 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
     public void onRootClick(View view) {
         switch ((int) (view.getTag())) {
             case 1:
-               Intent intent = new Intent(getActivity(),TimeExchangeActivity.class);
-               startActivity(intent);
+                Intent intent = new Intent(getActivity(), TimeExchangeActivity.class);
+                startActivity(intent);
 
                 break;
             case 2:
@@ -166,15 +162,15 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
                         // TODO Auto-generated method stub
                         if (updateStatus == UpdateStatus.Yes) {//版本有更新
 
-                        }else if(updateStatus == UpdateStatus.No){
+                        } else if (updateStatus == UpdateStatus.No) {
                             Toast.makeText(getActivity(), "版本无更新", Toast.LENGTH_SHORT).show();
-                        }else if(updateStatus==UpdateStatus.EmptyField){//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
+                        } else if (updateStatus == UpdateStatus.EmptyField) {//此提示只是提醒开发者关注那些必填项，测试成功后，无需对用户提示
                             Toast.makeText(getActivity(), "请检查你AppVersion表的必填项，1、target_size（文件大小）是否填写；2、path或者android_url两者必填其中一项。", Toast.LENGTH_SHORT).show();
-                        }else if(updateStatus==UpdateStatus.IGNORED){
+                        } else if (updateStatus == UpdateStatus.IGNORED) {
                             Toast.makeText(getActivity(), "该版本已被忽略更新", Toast.LENGTH_SHORT).show();
-                        }else if(updateStatus==UpdateStatus.ErrorSizeFormat){
+                        } else if (updateStatus == UpdateStatus.ErrorSizeFormat) {
                             Toast.makeText(getActivity(), "请检查target_size填写的格式，请使用file.length()方法获取apk大小。", Toast.LENGTH_SHORT).show();
-                        }else if(updateStatus==UpdateStatus.TimeOut){
+                        } else if (updateStatus == UpdateStatus.TimeOut) {
                             Toast.makeText(getActivity(), "查询出错或查询超时", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -212,7 +208,7 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
                         mSignUpLogin.setClickable(true);
                     }
                 });
-                builder.setNegativeButton("取消",null);
+                builder.setNegativeButton("取消", null);
                 builder.create().show();
                 break;
             default:
@@ -232,28 +228,31 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
         super.onStart();
 
         MyUser myUser = BmobUser.getCurrentUser(MyUser.class);
-        if (myUser != null ) {
+        if (myUser != null) {
             ll_mine_item.getChildAt(5).setVisibility(View.VISIBLE);
-                mMineAvatar.setClickable(false);
-                mSignUpLogin.setClickable(false);
-                String phone = myUser.getUsername();
-                String time = myUser.getOutTime();
-                StringBuilder sb = new StringBuilder(phone);
+            mMineAvatar.setClickable(false);
+            mSignUpLogin.setClickable(false);
+            String phone = myUser.getUsername();
+            String time = myUser.getOutTime();
+            StringBuilder sb = new StringBuilder(phone);
+            if (sb.length() >= 7) {
                 sb.replace(3, 7, "****");
                 mSignUpLogin.setText(sb.toString());
-                StringBuilder sb2 = new StringBuilder(time);
-                sb2.replace(10,19,"");
-                mMineTime.setText("体验时长：" + sb2+"到期");
+            }else {
+                mSignUpLogin.setText(sb.toString());
+            }
 
-        }else {
+
+            StringBuilder sb2 = new StringBuilder(time);
+            sb2.replace(10, 19, "");
+            mMineTime.setText("体验时长：" + sb2 + "到期");
+
+        } else {
             ll_mine_item.getChildAt(5).setVisibility(View.INVISIBLE);
         }
 
 
-
-
     }
-
 
 
 }

@@ -47,17 +47,25 @@ public class PlayVideoActivity extends AppCompatActivity {
     private TextView textViewVideoTitle;
     private X5WebView mWebView;
     private ViewGroup mViewParent;
-//    private String mLine1Url = "http://yun.ckmov.com/ckmov/index.php?url=";
-//    http://vip.jlsprh.com/index.php?url=
+    private String[] jiexiURL = null;
+    private String mLine1Url = "https://api.97kn.com/?url=";
 
-    private String mLine1Url = "http://y.mt2t.com/lines?url=";
-    private String mLine1Ur2 = "http://yun.baiyug.cn/vip/?url=";
-    private String mLine1Ur3 = "http://yun.odflv.com/?url=";
-    private String mLine1Ur4 = "http://jiexi.071811.cc/jx.php?url=";
-    private String mLine1Ur5 = "https://www.1717yun.com/jx/ty.php?url=";
-    private String mLine1Ur6 = "http://www.ibb6.com/jx/?url=";
-    private String mLine1Ur7 = "https://jx.ysviptq.com/ly/?url=";
-    private String mLine1Ur8 = "http://api.wlzhan.com/sudu/?url=";
+//    http://vip.jlsprh.com/index.php?url=
+//    http://yun.ckmov.com/ckmov/index.php?url=
+//    http://yun.baiyug.cn/vip/?url=
+    private String mLine1Ur2 = "https://jx.618g.com/?url=";
+//    private String mLine1Ur3 = "https://jx.ysviptq.com/ly/?url=";
+    private String mLine1Ur3 = "https://www.1717yun.com/jx/ty.php?url=";
+//    private String mLine1Ur4 = "http://y.mt2t.com/lines?url=";
+    private String mLine1Ur4 = "http://yun.odflv.com/?url=";
+    private String mLine1Ur5 = "http://api.wlzhan.com/sudu/?url=";
+    private String mLine1Ur6 = "http://y.mt2t.com/lines?url=";
+//    http://5.5252e.com/jx/b.php?url=
+//    private String mLine1Ur6 = "http://www.ibb6.com/jx/?url=";//思古解析，能用，还不错，暂时先废弃。
+    private String mLine1Ur7 = "http://jx.dlzyrk001.cn/jx.php/?url=";
+    private String mLine1Ur8 = "https://660e.com/?url=";
+
+//    https://yun.jxegc.com/vip.php?url=
 //    private String mLine1Ur9 = "http://jx.598110.com/index.php?url=";
 //    private String mLine1Ur10 = "";
 
@@ -87,6 +95,7 @@ public class PlayVideoActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         mHomeUrl = intent.getStringExtra("videourl");
         mVideoTitle = intent.getStringExtra("videotitle");
+        jiexiURL = intent.getStringArrayExtra("jiexiURL");
         textViewVideoTitle.setText(mVideoTitle);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
@@ -314,7 +323,12 @@ public class PlayVideoActivity extends AppCompatActivity {
         // webSetting.setPreFectch(true);
         long time = System.currentTimeMillis();
         if (mIntentUrl == null) {
-            mWebView.loadUrl(mLine1Url + mHomeUrl);
+            if (jiexiURL != null){
+                mWebView.loadUrl(jiexiURL[0] + mHomeUrl);
+            }else {
+                mWebView.loadUrl(mLine1Url + mHomeUrl);
+            }
+
 
 
         } else {
@@ -433,30 +447,61 @@ public class PlayVideoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.videoline1:
-                mWebView.loadUrl(mLine1Url + mHomeUrl);
+                if (jiexiURL != null){
 
+                    mWebView.loadUrl(jiexiURL[0]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Url + mHomeUrl);
+                }
                 break;
             case R.id.videoline2:
-                mWebView.loadUrl(mLine1Ur2 + mHomeUrl);
-
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[1]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur2 + mHomeUrl);
+                }
                 break;
             case R.id.videoline3:
-                mWebView.loadUrl(mLine1Ur3 + mHomeUrl);
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[2]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur3 + mHomeUrl);
+                }
                 break;
             case R.id.videoline4:
-                mWebView.loadUrl(mLine1Ur4 + mHomeUrl);
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[3]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur4 + mHomeUrl);
+                }
                 break;
             case R.id.videoline5:
-                mWebView.loadUrl(mLine1Ur5 + mHomeUrl);
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[4]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur5 + mHomeUrl);
+                }
                 break;
             case R.id.videoline6:
-                mWebView.loadUrl(mLine1Ur6 + mHomeUrl);
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[5]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur6 + mHomeUrl);
+                }
                 break;
             case R.id.videoline7:
-                mWebView.loadUrl(mLine1Ur7 + mHomeUrl);
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[6]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur7 + mHomeUrl);
+                }
                 break;
             case R.id.videoline8:
-                mWebView.loadUrl(mLine1Ur8 + mHomeUrl);
+                if (jiexiURL != null){
+                    mWebView.loadUrl(jiexiURL[7]+mHomeUrl);
+                }else {
+                    mWebView.loadUrl(mLine1Ur8 + mHomeUrl);
+                }
                 break;
             default:
                 break;
@@ -469,4 +514,6 @@ public class PlayVideoActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
