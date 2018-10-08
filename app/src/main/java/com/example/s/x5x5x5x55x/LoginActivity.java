@@ -23,14 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.s.x5x5x5x55x.Bmob.MyUser;
+import com.example.s.x5x5x5x55x.Bmob.UserReadOrACL;
 import com.example.s.x5x5x5x55x.utils.DateAndString;
 
 import java.nio.file.FileVisitOption;
 import java.util.Date;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -65,8 +68,25 @@ public class LoginActivity extends AppCompatActivity {
         mLoginToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
+                BmobQuery<UserReadOrACL> query = new BmobQuery<UserReadOrACL>();
+                query.getObject("1016b2b7e4", new QueryListener<UserReadOrACL>() {
+                    @Override
+                    public void done(UserReadOrACL userReadOrACL, BmobException e) {
+                        if (e == null){
+                            if (userReadOrACL.getUserReadOrACL().equals("Read")){
+                                Toast toast = Toast.makeText(LoginActivity.this, "抱歉，暂已关闭注册通道", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+                            }else {
+                                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                });
+
+
+
             }
         });
         linearLayout.setOnTouchListener(new View.OnTouchListener() {

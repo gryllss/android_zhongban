@@ -156,6 +156,8 @@ public class VideoFragment extends Fragment {
                                             getActivity().startActivity(intent);
                                         }
                                     });
+                                }else {
+                                    Toast.makeText(getActivity(), "未登录或账号已过期，请重新登录", Toast.LENGTH_SHORT).show();
                                 }
                             }else {
                                 Toast.makeText(getActivity(), "服务器可能出错了，请稍后再试", Toast.LENGTH_SHORT).show();

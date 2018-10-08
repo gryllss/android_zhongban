@@ -131,28 +131,9 @@ public class SignUpActivity extends AppCompatActivity {
                                             toast.show();
 
                                         } else {
-
-                                            BmobQuery<UserReadOrACL> query = new BmobQuery<UserReadOrACL>();
-                                            query.getObject("1016b2b7e4", new QueryListener<UserReadOrACL>() {
-                                                @Override
-                                                public void done(UserReadOrACL userReadOrACL, BmobException e) {
-                                                    if (e == null){
-                                                        if (userReadOrACL.getUserReadOrACL().equals("Read")){
-                                                            Toast toast = Toast.makeText(SignUpActivity.this, "抱歉，注册通道已关闭", Toast.LENGTH_SHORT);
-                                                            toast.setGravity(Gravity.CENTER, 0, 0);
-                                                            toast.show();
-                                                        }else {
-                                                            Toast toast = Toast.makeText(SignUpActivity.this, "手机号已被注册，请直接登陆", Toast.LENGTH_SHORT);
-                                                            toast.setGravity(Gravity.CENTER, 0, 0);
-                                                            toast.show();
-                                                        }
-                                                    }
-                                                }
-                                            });
-
-
-
-
+                                            Toast toast = Toast.makeText(SignUpActivity.this, "手机号已被注册，请直接登陆", Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                            toast.show();
                                         }
 
                                     }
