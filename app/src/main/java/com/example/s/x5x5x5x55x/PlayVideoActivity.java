@@ -45,6 +45,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     private TextView mLastGoBack;
     private TextView mLastRegresh;
     private TextView textViewVideoTitle;
+    private TextView mChangeLine;
     private X5WebView mWebView;
     private ViewGroup mViewParent;
     private String[] jiexiURL = null;
@@ -91,7 +92,14 @@ public class PlayVideoActivity extends AppCompatActivity {
         mLastRegresh = (TextView) findViewById(R.id.lastrefresh);
         mViewParent = (ViewGroup) findViewById(R.id.webView1);
         textViewVideoTitle = (TextView) findViewById(R.id.videotitle);
+        mChangeLine = (TextView)findViewById(R.id.changeline);
 
+        mChangeLine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              openOptionsMenu();
+            }
+        });
         final Intent intent = getIntent();
         mHomeUrl = intent.getStringExtra("videourl");
         mVideoTitle = intent.getStringExtra("videotitle");
@@ -505,12 +513,7 @@ public class PlayVideoActivity extends AppCompatActivity {
                 break;
             default:
                 break;
-//            case R.id.videoline9:
-//                mWebView.loadUrl(mLine1Ur9 + mHomeUrl);
-//                break;
-//            case R.id.videoline10:
-//                mWebView.loadUrl(mLine1Ur10 + mHomeUrl);
-//                break;
+
         }
         return true;
     }

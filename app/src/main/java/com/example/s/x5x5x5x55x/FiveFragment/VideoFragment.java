@@ -157,7 +157,7 @@ public class VideoFragment extends Fragment {
                                         }
                                     });
                                 }else {
-                                    Toast.makeText(getActivity(), "未登录或账号已过期，请重新登录", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "账号已在别处登录或账号身份已过期，请重新登录", Toast.LENGTH_SHORT).show();
                                 }
                             }else {
                                 Toast.makeText(getActivity(), "服务器可能出错了，请稍后再试", Toast.LENGTH_SHORT).show();
@@ -167,7 +167,7 @@ public class VideoFragment extends Fragment {
                     });
 
                 } else {
-                    Toast.makeText(getActivity(), "未登录或账号已过期，请重新登录", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "账号未登录", Toast.LENGTH_SHORT).show();
                 }
             }
         });

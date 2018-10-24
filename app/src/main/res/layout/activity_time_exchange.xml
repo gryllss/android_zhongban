@@ -67,7 +67,7 @@
         android:layout_marginTop="20dp"
         android:textColor="#000"
         android:textSize="15sp"
-        android:text="兑换码是用于增加体验时长的电子码,联系微信可以免费领取。请在有效期内使用，过期作废。"
+        android:text="兑换码是用于增加体验时长的电子码,联系微信可领取,均为免费赠送。请在有效期内使用，过期作废。"
         android:layout_marginLeft="30dp"/>
 
 

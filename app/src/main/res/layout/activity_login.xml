@@ -47,11 +47,12 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="70dp"
         android:hint="请输入您的手机号码"
-        android:maxLength="11"
+        android:maxLength="20"
         android:drawableLeft="@drawable/login_phonenumber"
         android:textCursorDrawable="@drawable/cursor_color"
         android:theme="@style/MyEditText"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
 
     <EditText
         android:id="@+id/et_loginpassword"

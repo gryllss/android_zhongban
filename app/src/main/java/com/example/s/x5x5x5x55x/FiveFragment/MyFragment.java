@@ -235,7 +235,7 @@ public class MyFragment extends Fragment implements MyOneLineView.OnRootClickLis
             String phone = myUser.getUsername();
             String time = myUser.getOutTime();
             StringBuilder sb = new StringBuilder(phone);
-            if (sb.length() >= 7) {
+            if (sb.length() >= 8) {
                 sb.replace(3, 7, "****");
                 mSignUpLogin.setText(sb.toString());
             }else {

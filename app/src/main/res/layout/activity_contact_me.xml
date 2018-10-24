@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="联系VX：xh191128，或QQ：2537977869，即可免费领取时长年卡。"
+        android:text="联系VX：xh191128，即可免费领取时长年卡。App在使用过程中有任何问题，都可以联系哦。"
         android:textSize="15sp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"/>

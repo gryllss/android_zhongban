@@ -1,7 +1,9 @@
 package com.example.s.x5x5x5x55x;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -13,8 +15,10 @@ import android.widget.Toast;
 
 import com.example.s.x5x5x5x55x.Bmob.ActivationCode;
 import com.example.s.x5x5x5x55x.Bmob.MyUser;
+import com.example.s.x5x5x5x55x.Bmob.UserReadOrACL;
 import com.example.s.x5x5x5x55x.utils.DateAndString;
 
+import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
@@ -22,9 +26,16 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class TimeExchangeActivity extends AppCompatActivity {
+
+    private String bmobCurrentTime = "";
+    private String localCurrentTime = "";
+    private Date localOutTime;
+
+    private Boolean isVer = false;
 
     private TextView mDuihuanPhone;
     private EditText mDuihuanma;
@@ -80,80 +91,111 @@ public class TimeExchangeActivity extends AppCompatActivity {
         mDuihuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isUsedCode = false;
-                duiHuanMa = mDuihuanma.getText().toString();
-                BmobQuery<ActivationCode> query = new BmobQuery<ActivationCode>();
-                query.addWhereEqualTo("activationCode", duiHuanMa);
-                query.findObjects(new FindListener<ActivationCode>() {
-                    @Override
-                    public void done(List<ActivationCode> list, BmobException e) {
-                        if (e==null){
-                            String str = "";
-                            for (ActivationCode activationCode1 : list) {
-                                str = activationCode1.getObjectId();
-                                isUsedCode = activationCode1.getUsed();
 
 
-                            }
-                            objectId = str;
+                MyUser myUser = BmobUser.getCurrentUser(MyUser.class);
+                if (myUser != null) {
+                    localCurrentTime = myUser.getCurrentTimeMillisVer();
+                    BmobQuery<MyUser> query = new BmobQuery<MyUser>();
+                    query.getObject(myUser.getObjectId(), new QueryListener<MyUser>() {
+                        @Override
+                        public void done(MyUser myUser, BmobException e) {
+                            if (e == null) {
+                                bmobCurrentTime = myUser.getCurrentTimeMillisVer();
+                                isVer = localCurrentTime.equals(bmobCurrentTime) ? true : false;
+                                if (isVer){
+
+                                    isUsedCode = false;
+                                    duiHuanMa = mDuihuanma.getText().toString();
+                                    BmobQuery<ActivationCode> query = new BmobQuery<ActivationCode>();
+                                    query.addWhereEqualTo("activationCode", duiHuanMa);
+                                    query.findObjects(new FindListener<ActivationCode>() {
+                                        @Override
+                                        public void done(List<ActivationCode> list, BmobException e) {
+                                            if (e==null){
+                                                String str = "";
+                                                for (ActivationCode activationCode1 : list) {
+                                                    str = activationCode1.getObjectId();
+                                                    isUsedCode = activationCode1.getUsed();
+
+
+                                                }
+                                                objectId = str;
 //                        Toast.makeText(TimeExchangeActivity.this, objectId, Toast.LENGTH_SHORT).show();
-                            if (!objectId.equals("") && !isUsedCode) {
+                                                if (!objectId.equals("") && !isUsedCode) {
 
-                                ActivationCode activationCode = new ActivationCode();
-                                MyUser newUser = new MyUser();
-                                newUser = BmobUser.getCurrentUser(MyUser.class);
-                                activationCode.setUsed(true);
-                                activationCode.setUsederPhone(newUser.getUsername());
-                                activationCode.setJiHuoTime(DateAndString.date2Str(DateAndString.millis2Date(System.currentTimeMillis())));
-                                activationCode.update( objectId, new UpdateListener() {
-                                    @Override
-                                    public void done(BmobException e) {
-                                        if (e==null){
-                                            MyUser newUser = new MyUser();
-                                            newUser = BmobUser.getCurrentUser(MyUser.class);
-                                            newUser.setOutTime(DateAndString.dateAddYear(newUser.getOutTime()));
-                                            newUser.update(newUser.getObjectId(), new UpdateListener() {
-                                                @Override
-                                                public void done(BmobException e) {
-                                                    if (e==null){
-                                                        Toast.makeText(TimeExchangeActivity.this, "激活成功", Toast.LENGTH_SHORT).show();
-                                                        finish();
-                                                    }else {
-                                                        Toast.makeText(TimeExchangeActivity.this, "激活失败，当前账号可能已在其他设备登录", Toast.LENGTH_SHORT).show();
+                                                    final ActivationCode activationCode = new ActivationCode();
+                                                    MyUser newUser = new MyUser();
+                                                    newUser = BmobUser.getCurrentUser(MyUser.class);
+                                                    activationCode.setUsed(true);
+                                                    activationCode.setUsederPhone(newUser.getUsername());
+                                                    activationCode.setJiHuoTime(DateAndString.date2Str(DateAndString.millis2Date(System.currentTimeMillis())));
+                                                    activationCode.update( objectId, new UpdateListener() {
+                                                        @Override
+                                                        public void done(BmobException e) {
+                                                            if (e==null){
+                                                                MyUser newUser = new MyUser();
+                                                                newUser = BmobUser.getCurrentUser(MyUser.class);
+                                                                newUser.setOutTime(DateAndString.dateAddYear(newUser.getOutTime()));
+                                                                newUser.update(newUser.getObjectId(), new UpdateListener() {
+                                                                    @Override
+                                                                    public void done(BmobException e) {
+                                                                        if (e==null){
+                                                                            Toast.makeText(TimeExchangeActivity.this, "激活成功", Toast.LENGTH_SHORT).show();
+                                                                            finish();
+                                                                        }
+                                                                    }
+
+                                                                });
+
+                                                            }
+                                                        }
+
+
+
+
+                                                    });
+
+
+                                                } else {
+                                                    if (isUsedCode) {
+                                                        Toast.makeText(TimeExchangeActivity.this, "激活码已被使用", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(TimeExchangeActivity.this, "激活码不存在，请输入正确的激活码", Toast.LENGTH_SHORT).show();
                                                     }
+
                                                 }
 
-                                            });
+                                            }
+
 
                                         }
-                                    }
 
 
 
 
-                                });
+                                    });
 
 
-                            } else {
-                                if (isUsedCode) {
-                                    Toast.makeText(TimeExchangeActivity.this, "激活码已被使用", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(TimeExchangeActivity.this, "激活码不存在，请输入正确的激活码", Toast.LENGTH_SHORT).show();
+
+
+                                }else {
+                                    Toast.makeText(TimeExchangeActivity.this, "激活失败，当前账号身份信息已过期,请重新登陆后激活", Toast.LENGTH_SHORT).show();
                                 }
-
+                            }else {
+                                Toast.makeText(TimeExchangeActivity.this, "服务器可能出错了，请稍后再试", Toast.LENGTH_SHORT).show();
                             }
 
-                        }else {
-                            Toast.makeText(TimeExchangeActivity.this, "账号未登录", Toast.LENGTH_SHORT).show();
                         }
+                    });
+
+                } else {
+                    Toast.makeText(TimeExchangeActivity.this, "账号未登录", Toast.LENGTH_SHORT).show();
+                }
 
 
-                    }
 
 
-
-
-                });
 
 
             }
@@ -163,4 +205,10 @@ public class TimeExchangeActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
 }
+
+
