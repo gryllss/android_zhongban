@@ -63,7 +63,7 @@ public class PlayVideoActivity extends AppCompatActivity {
     private String mLine1Ur6 = "http://y.mt2t.com/lines?url=";
 //    http://5.5252e.com/jx/b.php?url=
 //    private String mLine1Ur6 = "http://www.ibb6.com/jx/?url=";//思古解析，能用，还不错，暂时先废弃。
-    private String mLine1Ur7 = "http://jx.dlzyrk001.cn/jx.php/?url=";
+    private String mLine1Ur7 = "http://yun.baiyug.cn/vip/index.php?url=";
     private String mLine1Ur8 = "https://660e.com/?url=";
 
 //    https://yun.jxegc.com/vip.php?url=
@@ -290,7 +290,7 @@ public class PlayVideoActivity extends AppCompatActivity {
                 .getPath());
         // webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
         webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
-
+        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override

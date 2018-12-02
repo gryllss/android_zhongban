@@ -111,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             myUser.setUsername(userPhone);
                             myUser.setPassword(userPasswprd);
-                            myUser.setOutTime(DateAndString.date2Str(new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000)));
+                            myUser.setOutTime(DateAndString.date2Str(new Date(new Date().getTime() + 1 * 60 * 60 * 1000)));
                             myUser.setUserImei(imei);//获取手机imei作为账号找回密码的比对值，在注册时写入。
                             myUser.signUp(new SaveListener<MyUser>() {
                                 @Override

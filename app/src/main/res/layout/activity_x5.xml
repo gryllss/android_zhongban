@@ -93,7 +93,7 @@
            android:id="@+id/textview_playvideo"
            android:layout_width="match_parent"
            android:layout_height="38dp"
-           android:text="在播放页面点击这里搜索资源"
+           android:text="进入想观看的视频页面，点击此处播放"
            android:textSize="18sp"
            android:textColor="#E6E6E6"
            android:background="#888888"
